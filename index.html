@@ -4,20 +4,19 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="color-scheme" content="dark light" />
-  <title>Bionic Reading Converter – Text & PDF lokal umwandeln</title>
 
-  <!-- SEO -->
-  <meta name="description" content="Bionic Reading im Browser: Text einfügen oder PDF hochladen und sofort fokussierter lesen. 100% lokal, ohne Server." />
+  <title>Bionic Reading & Speedreader (ORP/Spritz) – Text & PDF lokal</title>
+  <meta name="description" content="Bionic Reading & Spritz-Style Speedreader (ORP): Text einfügen oder PDF laden und lokal im Browser lesen. Ohne Server-Upload." />
   <link rel="canonical" href="https://4rjn.github.io/bionicreading/" />
   <meta name="robots" content="index,follow,max-image-preview:large" />
 
   <!-- OpenGraph / Social -->
-  <meta property="og:site_name" content="Bionic Reading Converter" />
-  <meta property="og:title" content="Bionic Reading Converter – Text & PDF lokal umwandeln" />
-  <meta property="og:description" content="Text einfügen oder PDF hochladen → Bionic Reading sofort starten. Alles läuft lokal im Browser." />
+  <meta property="og:site_name" content="Bionic Reading Tool" />
+  <meta property="og:title" content="Bionic Reading & Speedreader (ORP/Spritz)" />
+  <meta property="og:description" content="Text oder PDF → Bionic Reading oder Spritz-Style Speedreading (ORP) direkt im Browser. 100% lokal." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://4rjn.github.io/bionicreading/" />
-  <meta property="og:image" content="https://4rjn.github.io/bionicreading/assets/og.png" />
+  <meta property="og:image" content="https://4rjn.github.io/bionicreading/assets/og.svg" />
   <meta name="twitter:card" content="summary_large_image" />
 
   <!-- PWA-ish -->
@@ -27,7 +26,7 @@
   <link rel="stylesheet" href="./assets/app.css" />
 
   <!-- PDF.js (Client-side PDF Text Extraction) -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.7.76/pdf.min.js" integrity="sha512-6H7h3o3xvF8m8R2m+6mE6K9g3hOqj3H2Qm1h+0kP+gVZ5H3o5uYjQkqf6Q5l0bK1xk9rJXWZ0qvM3u8s7l5d9Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.7.76/pdf.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 
 <body>
@@ -37,7 +36,7 @@
         <span class="logo" aria-hidden="true">BR</span>
         <span class="brand-text">
           <strong>Bionic Reading</strong>
-          <span class="muted">Text & PDF → Fokus-Lesen</span>
+          <span class="muted">+ ORP Speedreader (Spritz Style)</span>
         </span>
       </a>
 
@@ -53,10 +52,10 @@
   <main class="wrap">
     <section class="hero">
       <div class="hero-left">
-        <h1>Text oder PDF rein — <span class="grad">Bionic Reading</span> startet sofort.</h1>
+        <h1>Wie im Video: <span class="grad">ORP</span> in der Wortmitte + 300 WPM.</h1>
         <p class="lead">
-          Markiere die Wort-Anker (z. B. rote Buchstaben) und lies schneller & fokussierter.
-          <strong>Alles läuft lokal im Browser</strong> – keine Uploads auf Server.
+          Wähle: <strong>Bionic Reading</strong> (Wortanfang markiert) oder <strong>Speedreader</strong> (RSVP/Spritz-Style mit <strong>ORP</strong> – ein Buchstabe in der Mitte rot).
+          Text einfügen oder PDF hochladen – <strong>alles läuft lokal</strong> im Browser.
         </p>
 
         <div class="hero-actions">
@@ -67,73 +66,72 @@
         <div class="badges">
           <span class="badge">100% Client-Side</span>
           <span class="badge">Text & PDF</span>
-          <span class="badge">Copy & Export</span>
+          <span class="badge">Bionic + Spritz/ORP</span>
         </div>
       </div>
 
       <div class="hero-card">
-        <div class="mini-title">Vorschau</div>
-        <div class="preview" id="preview">
-          <p><span class="br">B</span>i<span class="br">o</span>n<span class="br">i</span>c Reading hebt Wort-Anker hervor…</p>
-          <p class="muted">…damit dein Gehirn schneller „einrastet“.</p>
+        <div class="mini-title">Speedreader Vorschau (ORP fix)</div>
+        <div class="spritz preview" aria-hidden="true">
+          <div class="spritz-line">
+            <span class="spritz-left">mi</span><span class="spritz-pivot br-red">n</span><span class="spritz-right">ute</span>
+          </div>
+          <div class="spritz-meta muted">300 wpm · ORP (Optimal Recognition Point)</div>
         </div>
       </div>
     </section>
 
     <section id="tool" class="panel">
       <div class="panel-head">
-        <h2>Converter</h2>
-        <p class="muted">Text einfügen oder PDF hochladen. Danach: Intensität wählen → umwandeln.</p>
+        <h2>Tool</h2>
+        <p class="muted">Input wählen → Modus wählen → lesen.</p>
       </div>
 
-      <div class="grid">
-        <div class="card">
-          <div class="card-head">
-            <h3>1) Input</h3>
-            <p class="muted">Text oder PDF</p>
-          </div>
-
-          <div class="tabs" role="tablist" aria-label="Eingabe wählen">
-            <button class="tab active" id="tab-text" type="button" role="tab" aria-selected="true">Text</button>
-            <button class="tab" id="tab-pdf" type="button" role="tab" aria-selected="false">PDF</button>
-          </div>
-
-          <div id="pane-text" class="pane">
-            <label class="label" for="inputText">Text einfügen</label>
-            <textarea id="inputText" class="textarea" placeholder="Kopiere hier deinen Text rein…"></textarea>
-
-            <div class="row">
-              <button class="btn primary" id="btn-convert-text" type="button">Bionic Reading starten</button>
-              <button class="btn" id="btn-clear" type="button">Leeren</button>
-            </div>
-
-            <div class="hint">Tipp: Für beste Ergebnisse Absätze/Überschriften beibehalten.</div>
-          </div>
-
-          <div id="pane-pdf" class="pane hidden">
-            <label class="label" for="pdfFile">PDF hochladen</label>
-            <input id="pdfFile" class="file" type="file" accept="application/pdf" />
-
-            <div class="row">
-              <button class="btn primary" id="btn-convert-pdf" type="button">PDF lesen & umwandeln</button>
-              <button class="btn" id="btn-pdf-reset" type="button">Reset</button>
-            </div>
-
-            <div class="hint">
-              PDF wird lokal verarbeitet. Große PDFs dauern je nach Gerät ein paar Sekunden.
-            </div>
-
-            <div class="progress hidden" id="pdfProgress">
-              <div class="bar" id="pdfBar" style="width:0%"></div>
-              <div class="muted" id="pdfStatus">Bereit.</div>
-            </div>
-          </div>
+      <div class="card">
+        <div class="card-head">
+          <h3>1) Input</h3>
+          <p class="muted">Text einfügen oder PDF hochladen</p>
         </div>
 
+        <div class="tabs" role="tablist" aria-label="Eingabe wählen">
+          <button class="tab active" id="tab-text" type="button" role="tab" aria-selected="true">Text</button>
+          <button class="tab" id="tab-pdf" type="button" role="tab" aria-selected="false">PDF</button>
+        </div>
+
+        <div id="pane-text" class="pane">
+          <label class="label" for="inputText">Text einfügen</label>
+          <textarea id="inputText" class="textarea" placeholder="Kopiere hier deinen Text rein…"></textarea>
+
+          <div class="row">
+            <button class="btn primary" id="btn-load-text" type="button">Text übernehmen</button>
+            <button class="btn" id="btn-clear" type="button">Leeren</button>
+          </div>
+          <div class="hint">Der Text wird nur in deinem Browser verarbeitet.</div>
+        </div>
+
+        <div id="pane-pdf" class="pane hidden">
+          <label class="label" for="pdfFile">PDF hochladen</label>
+          <input id="pdfFile" class="file" type="file" accept="application/pdf" />
+
+          <div class="row">
+            <button class="btn primary" id="btn-load-pdf" type="button">PDF lesen (lokal)</button>
+            <button class="btn" id="btn-pdf-reset" type="button">Reset</button>
+          </div>
+
+          <div class="progress hidden" id="pdfProgress">
+            <div class="bar" id="pdfBar" style="width:0%"></div>
+            <div class="muted" id="pdfStatus">Bereit.</div>
+          </div>
+
+          <div class="hint">Hinweis: Manche PDFs enthalten nur Bilder – dann kommt wenig Text raus (OCR nötig).</div>
+        </div>
+      </div>
+
+      <div class="grid mt">
         <div class="card">
           <div class="card-head">
-            <h3>2) Einstellungen</h3>
-            <p class="muted">Steuere, wie stark markiert wird</p>
+            <h3>2A) Bionic Reading (Absatz)</h3>
+            <p class="muted">Markiert einen Anteil pro Wort</p>
           </div>
 
           <div class="controls">
@@ -144,79 +142,125 @@
             </div>
 
             <div class="control">
-              <label class="label" for="mode">Markierung</label>
-              <select id="mode" class="select">
-                <option value="red">Rot + fett (Standard)</option>
+              <label class="label" for="markStyle">Markierung</label>
+              <select id="markStyle" class="select">
+                <option value="red" selected>Rot + fett</option>
                 <option value="bold">Nur fett</option>
                 <option value="underline">Unterstrichen</option>
               </select>
             </div>
 
+            <div class="row">
+              <button class="btn primary" id="btn-bionic" type="button">Bionic anzeigen</button>
+              <button class="btn" id="btn-export" type="button">HTML export</button>
+            </div>
+
+            <div class="hint">Export speichert Markierungen als HTML-Datei.</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-head">
+            <h3>2B) Speedreader (ORP/Spritz)</h3>
+            <p class="muted">Wie im Video: ein Fixier-Buchstabe in der Mitte</p>
+          </div>
+
+          <div class="controls">
             <div class="control">
-              <label class="label" for="fontSize">Leseschrift</label>
-              <select id="fontSize" class="select">
-                <option value="16">Normal</option>
-                <option value="18" selected>Groß</option>
-                <option value="20">Sehr groß</option>
-                <option value="24">XL</option>
+              <label class="label" for="wpm">WPM</label>
+              <input id="wpm" type="range" min="120" max="900" step="10" value="300" />
+              <div class="muted small">Aktuell: <span id="wpmVal">300</span> wpm</div>
+            </div>
+
+            <div class="control">
+              <label class="label" for="orpMode">ORP-Regel</label>
+              <select id="orpMode" class="select">
+                <option value="spritz" selected>Spritz-ähnlich (empfohlen)</option>
+                <option value="middle">Genau Mitte (einfach)</option>
               </select>
             </div>
 
             <div class="row">
-              <button class="btn" id="btn-copy" type="button">Als Text kopieren</button>
-              <button class="btn" id="btn-export" type="button">Als HTML speichern</button>
+              <button class="btn primary" id="btn-play" type="button">▶ Start</button>
+              <button class="btn" id="btn-pause" type="button" disabled>⏸ Pause</button>
+              <button class="btn" id="btn-stop" type="button" disabled>⏹ Stop</button>
             </div>
 
-            <div class="hint">
-              „Als Text kopieren“ kopiert die reine Textversion. „HTML speichern“ behält Markierungen.
+            <div class="row">
+              <button class="btn" id="btn-back" type="button" disabled>⟵ 10</button>
+              <button class="btn" id="btn-forward" type="button" disabled>10 ⟶</button>
             </div>
+
+            <div class="hint">Tipp: Bei Satzende wird automatisch minimal länger pausiert.</div>
           </div>
         </div>
       </div>
 
-      <div class="output card">
-        <div class="card-head">
-          <h3>3) Output</h3>
-          <p class="muted">Hier erscheint dein Bionic-Text</p>
+      <div class="grid mt">
+        <div class="card">
+          <div class="card-head">
+            <h3>3A) Bionic Output</h3>
+            <p class="muted">Absatzansicht</p>
+          </div>
+          <div class="output-toolbar">
+            <span class="pill small" id="stats">0 Wörter</span>
+            <span class="pill small" id="status">Bereit.</span>
+          </div>
+          <article id="bionicOut" class="reader" aria-live="polite">
+            <p class="muted">Text laden → „Bionic anzeigen“.</p>
+          </article>
         </div>
 
-        <div class="output-toolbar">
-          <span class="pill small" id="stats">0 Wörter</span>
-          <span class="pill small" id="status">Bereit.</span>
-        </div>
+        <div class="card">
+          <div class="card-head">
+            <h3>3B) Speedreader Output</h3>
+            <p class="muted">RSVP mit ORP-Fixierung</p>
+          </div>
 
-        <article id="output" class="reader" aria-live="polite">
-          <p class="muted">Füge links Text ein oder lade ein PDF hoch. Dann „Bionic Reading starten“.</p>
-        </article>
+          <div class="spritz-box" aria-live="polite" aria-label="Speedreader Anzeige">
+            <div class="spritz-line" id="spritzLine">
+              <span class="spritz-left" id="spritzLeft"></span>
+              <span class="spritz-pivot br-red" id="spritzPivot"></span>
+              <span class="spritz-right" id="spritzRight"></span>
+            </div>
+            <div class="spritz-hud">
+              <span class="pill small" id="spritzPos">0/0</span>
+              <span class="pill small" id="spritzInfo">300 wpm</span>
+            </div>
+            <div class="spritz-sub muted" id="spritzSub">Bereit.</div>
+          </div>
+
+        </div>
       </div>
     </section>
 
     <section id="faq" class="panel">
       <div class="panel-head">
         <h2>FAQ</h2>
-        <p class="muted">Kurz & knapp</p>
+        <p class="muted">Was du wahrscheinlich wissen willst</p>
       </div>
 
       <div class="faq">
         <details>
-          <summary>Was ist Bionic Reading?</summary>
+          <summary>Was ist ORP / Spritz-Style?</summary>
           <div class="content">
-            Es werden Wort-Anker (z. B. der erste Teil eines Wortes) hervorgehoben, damit du schneller scannen und stabiler fokusieren kannst.
+            ORP steht für „Optimal Recognition Point“. Beim Speedreading wird ein Buchstabe pro Wort (oft rot) an einer Position markiert,
+            die das Erkennen erleichtert. Zusätzlich bleibt der ORP-Buchstabe immer an derselben Stelle, damit die Augen nicht springen.
           </div>
         </details>
 
         <details>
-          <summary>Werden meine PDFs hochgeladen?</summary>
+          <summary>Was ist der Unterschied zu Bionic Reading?</summary>
           <div class="content">
-            Nein. Die Verarbeitung passiert lokal im Browser. Es gibt keinen Server-Upload.
+            Bionic Reading markiert typischerweise den Wortanfang (einen Anteil des Wortes) innerhalb normaler Absätze.
+            Der Spritz/ORP-Speedreader zeigt Wörter nacheinander (RSVP) und markiert einen Fixierpunkt in der Wortmitte.
           </div>
         </details>
 
         <details>
-          <summary>Warum sehen manche PDF-Texte komisch aus?</summary>
+          <summary>Werden meine Daten hochgeladen?</summary>
           <div class="content">
-            Manche PDFs sind nur Bilder oder haben ungewöhnliche Textlayer. Dann kann extrahierter Text lückenhaft sein.
-            In dem Fall hilft oft eine „echte“ Text-PDF oder OCR vorab.
+            Nein. Text & PDF werden lokal im Browser verarbeitet. Es gibt keinen Server-Upload.
           </div>
         </details>
       </div>
@@ -230,14 +274,17 @@
 
       <div class="card">
         <p>
-          Diese Seite verarbeitet Text und PDFs <strong>ausschließlich lokal im Browser</strong>.
-          Es werden keine Inhalte an einen Server übertragen.
+          Diese Seite verarbeitet Inhalte <strong>nur lokal</strong> im Browser.
+          Es werden keine Texte oder PDFs an einen Server übertragen.
+        </p>
+        <p class="muted small">
+          PDF.js wird aktuell über ein CDN geladen. Wenn du 100% offline willst, kannst du PDF.js lokal ins Repo legen.
         </p>
       </div>
     </section>
 
     <footer class="footer">
-      <div class="muted small">© <span id="year"></span> Bionic Reading Converter · 4rjn.github.io/bionicreading</div>
+      <div class="muted small">© <span id="year"></span> · 4rjn.github.io/bionicreading</div>
     </footer>
   </main>
 
@@ -246,11 +293,11 @@
   {
     "@context":"https://schema.org",
     "@type":"WebApplication",
-    "name":"Bionic Reading Converter",
+    "name":"Bionic Reading & ORP Speedreader",
     "url":"https://4rjn.github.io/bionicreading/",
     "applicationCategory":"UtilitiesApplication",
     "operatingSystem":"Web",
-    "description":"Text oder PDF lokal in Bionic Reading umwandeln – ohne Server-Upload."
+    "description":"Text oder PDF lokal in Bionic Reading oder Spritz-Style ORP-Speedreading umwandeln – ohne Server-Upload."
   }
   </script>
 

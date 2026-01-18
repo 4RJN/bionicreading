@@ -1,5 +1,5 @@
 {
-  "name": "Bionic Reading Converter",
+  "name": "Bionic Reading & ORP Speedreader",
   "short_name": "BionicReading",
   "start_url": "/bionicreading/",
   "display": "standalone",
