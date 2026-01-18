@@ -96,3 +96,32 @@ button:hover {
   color: #ff0000 !important;
   font-weight: 800;
 }
+
+/* Speedreader Output polish (additiv) */
+.spritz-box{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  min-height:220px;
+  padding:24px;
+  border-radius:18px;
+  background: rgba(0,0,0,.18);
+  border:1px solid rgba(255,255,255,.10);
+}
+
+.spritz-line{
+  display:flex;
+  align-items:baseline;
+  justify-content:center;
+  font-size: clamp(44px, 8vw, 74px);
+  font-weight: 650;
+  letter-spacing: .02em;
+  line-height: 1.15;
+}
+
+.spritz-left,.spritz-right{ color: rgba(255,255,255,.78); }
+.spritz-pivot{ color:#ff0000 !important; font-weight:900; margin: 0 .03em; }
+
+.spritz-hud{ display:flex; gap:10px; margin-top:10px; }
+.spritz-sub{ margin-top:10px; min-height:1.2em; opacity:.75; }
