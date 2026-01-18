@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#0b0d12"/>
+      <stop offset="1" stop-color="#141826"/>
+    </linearGradient>
+    <linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#7c5cff"/>
+      <stop offset="1" stop-color="#23d5ab"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="170" cy="170" r="260" fill="#7c5cff" opacity="0.12"/>
+  <circle cx="1030" cy="120" r="260" fill="#23d5ab" opacity="0.10"/>
+
+  <rect x="80" y="90" width="1040" height="450" rx="28" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.12)"/>
+
+  <text x="140" y="210" fill="white" font-family="ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial" font-size="56" font-weight="900">Bionic Reading + ORP Speedreader</text>
+  <text x="140" y="280" fill="rgba(255,255,255,0.75)" font-family="ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial" font-size="30">Text oder PDF – lokal im Browser. Spritz-Style: ORP in der Wortmitte.</text>
+
+  <!-- Spritz preview -->
+  <g transform="translate(140,350)">
+    <rect x="0" y="0" width="520" height="120" rx="18" fill="rgba(0,0,0,0.22)" stroke="rgba(255,255,255,0.12)"/>
+    <text x="260" y="78" text-anchor="middle" font-family="ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial" font-size="64" font-weight="900" fill="white">
+      mi<tspan fill="#ff3b5c">n</tspan>ute
+    </text>
+  </g>
+
+  <rect x="840" y="360" width="210" height="64" rx="999" fill="url(#g)"/>
+  <text x="945" y="402" text-anchor="middle" font-family="ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial" font-size="24" font-weight="900" fill="#0b0d12">300 WPM</text>
+
+  <text x="140" y="520" fill="rgba(255,255,255,0.65)" font-family="ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial" font-size="22">4rjn.github.io/bionicreading</text>
+</svg>
