@@ -1,0 +1,16 @@
+{
+  "name": "Bionic Reading Converter",
+  "short_name": "BionicReading",
+  "start_url": "/bionicreading/",
+  "display": "standalone",
+  "background_color": "#0b0d12",
+  "theme_color": "#0b0d12",
+  "icons": [
+    {
+      "src": "/bionicreading/assets/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
