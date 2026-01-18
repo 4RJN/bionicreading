@@ -1,57 +1,234 @@
 <!doctype html>
 <html lang="de">
 <head>
-  <meta charset="utf-8">
-  <title>Speedreader – ORP RSVP</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Minimaler Speedreader mit ORP-Fixierung. Text einfügen, WPM einstellen und fokussiert lesen.">
-  <meta name="robots" content="index,follow">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="color-scheme" content="dark light" />
 
-  <link rel="stylesheet" href="app.css">
+  <title>Speedreader (ORP) – RSVP lokal im Browser</title>
+  <meta name="description" content="Speedreader mit ORP-Fixierung (RSVP): Text einfügen, WPM einstellen und fokussiert lesen. Alles läuft lokal im Browser." />
+  <link rel="canonical" href="https://4rjn.github.io/bionicreading/" />
+  <meta name="robots" content="index,follow,max-image-preview:large" />
+
+  <!-- OpenGraph / Social -->
+  <meta property="og:site_name" content="Speedreader (ORP)" />
+  <meta property="og:title" content="Speedreader (ORP) – RSVP lokal im Browser" />
+  <meta property="og:description" content="Text einfügen → WPM einstellen → RSVP lesen. ORP-Fixierung hält den Fokus stabil. Lokal im Browser." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://4rjn.github.io/bionicreading/" />
+  <meta property="og:image" content="https://4rjn.github.io/bionicreading/assets/og.svg" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- PWA-ish -->
+  <link rel="manifest" href="./site.webmanifest" />
+  <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
+
+  <!-- KEEP: original CSS -->
+  <link rel="stylesheet" href="./assets/app.css" />
 </head>
 
 <body>
-  <main class="container">
+  <header class="topbar">
+    <div class="wrap">
+      <a class="brand" href="./" aria-label="Startseite">
+        <span class="logo" aria-hidden="true">SR</span>
+        <span class="brand-text">
+          <strong>Speedreader</strong>
+          <span class="muted">RSVP mit ORP-Fixierung</span>
+        </span>
+      </a>
 
-    <h1>Speedreader</h1>
-    <p class="subtitle">RSVP mit ORP-Fixierung</p>
+      <nav class="nav">
+        <a href="#tool">Tool</a>
+        <a href="#faq">FAQ</a>
+        <a href="#privacy">Datenschutz</a>
+        <a class="pill" href="https://github.com/4rjn/bionicreading" target="_blank" rel="noreferrer">GitHub</a>
+      </nav>
+    </div>
+  </header>
 
-    <!-- 1) Text Input -->
-    <section class="panel">
-      <h2>1) Text eingeben</h2>
-      <textarea id="input" placeholder="Text hier einfügen…"></textarea>
-    </section>
+  <main class="wrap">
+    <section class="hero">
+      <div class="hero-left">
+        <h1>Speedreading mit <span class="grad">ORP</span> – stabiler Fokus.</h1>
+        <p class="lead">
+          Füge deinen Text ein, stelle die Geschwindigkeit ein und lies Wort für Wort (RSVP).
+          Der ORP-Buchstabe bleibt an derselben Stelle, damit die Augen nicht springen.
+        </p>
 
-    <!-- 2) Controls -->
-    <section class="panel">
-      <h2>2) Einstellungen</h2>
+        <div class="hero-actions">
+          <a class="btn primary" href="#tool">Jetzt starten</a>
+          <button class="btn ghost" id="btn-demo" type="button">Demo einfügen</button>
+        </div>
 
-      <label>
-        Wörter pro Minute:
-        <span id="wpmValue">300</span>
-      </label>
-      <input type="range" id="wpm" min="100" max="1000" step="50" value="300">
-
-      <div class="buttons">
-        <button id="start">Start</button>
-        <button id="pause">Pause</button>
-        <button id="stop">Stop</button>
+        <div class="badges">
+          <span class="badge">100% Client-Side</span>
+          <span class="badge">Nur Text</span>
+          <span class="badge">RSVP + ORP</span>
+        </div>
       </div>
-    </section>
 
-    <!-- 3) Output -->
-    <section class="panel">
-      <h2>3) Speedreader Output</h2>
-
-      <div class="reader">
-        <div class="word" id="word">
-          <span class="left"></span><span class="orp"></span><span class="right"></span>
+      <div class="hero-card">
+        <div class="mini-title">Vorschau</div>
+        <div class="spritz preview" aria-hidden="true">
+          <div class="spritz-line">
+            <span class="spritz-left">mi</span><span class="spritz-pivot br-red">n</span><span class="spritz-right">ute</span>
+          </div>
+          <div class="spritz-meta muted">300 wpm · ORP</div>
         </div>
       </div>
     </section>
 
+    <section id="tool" class="panel">
+      <div class="panel-head">
+        <h2>Tool</h2>
+        <p class="muted">Text laden → Einstellungen → lesen.</p>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <div class="card-head">
+            <h3>1) Text eingeben</h3>
+            <p class="muted">Text wird lokal verarbeitet</p>
+          </div>
+
+          <label class="label" for="inputText">Text einfügen</label>
+          <textarea id="inputText" class="textarea" placeholder="Kopiere hier deinen Text rein…"></textarea>
+
+          <div class="row">
+            <button class="btn primary" id="btn-load-text" type="button">Text übernehmen</button>
+            <button class="btn" id="btn-clear" type="button">Leeren</button>
+          </div>
+
+          <div class="hint">Tipp: Space = Play/Pause (außer du bist im Textfeld).</div>
+        </div>
+
+        <div class="card">
+          <div class="card-head">
+            <h3>2B) Speedreader (ORP)</h3>
+            <p class="muted">RSVP mit Fixierpunkt</p>
+          </div>
+
+          <div class="controls">
+            <div class="control">
+              <label class="label" for="wpm">WPM</label>
+              <input id="wpm" type="range" min="120" max="900" step="10" value="300" />
+              <div class="muted small">Aktuell: <span id="wpmVal">300</span> wpm</div>
+            </div>
+
+            <div class="control">
+              <label class="label" for="orpMode">ORP-Regel</label>
+              <select id="orpMode" class="select">
+                <option value="spritz" selected>Spritz-ähnlich (empfohlen)</option>
+                <option value="middle">Genau Mitte (einfach)</option>
+              </select>
+            </div>
+
+            <div class="row">
+              <button class="btn primary" id="btn-play" type="button">▶ Start</button>
+              <button class="btn" id="btn-pause" type="button" disabled>⏸ Pause</button>
+              <button class="btn" id="btn-stop" type="button" disabled>⏹ Stop</button>
+            </div>
+
+            <div class="row">
+              <button class="btn" id="btn-back" type="button" disabled>⟵ 10</button>
+              <button class="btn" id="btn-forward" type="button" disabled>10 ⟶</button>
+            </div>
+
+            <div class="output-toolbar">
+              <span class="pill small" id="stats">0 Wörter</span>
+              <span class="pill small" id="status">Bereit.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid mt">
+        <div class="card">
+          <div class="card-head">
+            <h3>3B) Speedreader Output</h3>
+            <p class="muted">Anzeige</p>
+          </div>
+
+          <div class="spritz-box" aria-live="polite" aria-label="Speedreader Anzeige">
+            <div class="spritz-line" id="spritzLine">
+              <span class="spritz-left" id="spritzLeft"></span>
+              <span class="spritz-pivot br-red" id="spritzPivot"></span>
+              <span class="spritz-right" id="spritzRight"></span>
+            </div>
+            <div class="spritz-hud">
+              <span class="pill small" id="spritzPos">0/0</span>
+              <span class="pill small" id="spritzInfo">300 wpm</span>
+            </div>
+            <div class="spritz-sub muted" id="spritzSub">Bereit.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" class="panel">
+      <div class="panel-head">
+        <h2>FAQ</h2>
+        <p class="muted">Kurz & knapp</p>
+      </div>
+
+      <div class="faq">
+        <details>
+          <summary>Was ist ORP?</summary>
+          <div class="content">
+            ORP steht für „Optimal Recognition Point“. Dabei wird ein Buchstabe pro Wort an einer stabilen Position hervorgehoben,
+            sodass die Augen nicht ständig nach links/rechts springen müssen.
+          </div>
+        </details>
+
+        <details>
+          <summary>Werden meine Daten hochgeladen?</summary>
+          <div class="content">
+            Nein. Der Text wird ausschließlich lokal in deinem Browser verarbeitet.
+          </div>
+        </details>
+
+        <details>
+          <summary>Gibt es Tastatur-Shortcuts?</summary>
+          <div class="content">
+            Space = Play/Pause (außer du bist im Textfeld). Pfeil links/rechts springt ein Wort zurück/vor.
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <section id="privacy" class="panel">
+      <div class="panel-head">
+        <h2>Datenschutz</h2>
+        <p class="muted">Client-Side by Design</p>
+      </div>
+
+      <div class="card">
+        <p>
+          Diese Seite verarbeitet Text <strong>nur lokal</strong> im Browser.
+          Es werden keine Inhalte an einen Server übertragen.
+        </p>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="muted small">© <span id="year"></span> · 4rjn.github.io/bionicreading</div>
+    </footer>
   </main>
 
-  <script src="app.js"></script>
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"WebApplication",
+    "name":"Speedreader (ORP)",
+    "url":"https://4rjn.github.io/bionicreading/",
+    "applicationCategory":"UtilitiesApplication",
+    "operatingSystem":"Web",
+    "description":"Speedreader mit ORP-Fixierung (RSVP): Text einfügen, WPM einstellen und lokal im Browser lesen."
+  }
+  </script>
+
+  <script src="./assets/app.js"></script>
 </body>
 </html>
