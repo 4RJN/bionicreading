@@ -89,3 +89,10 @@ button:hover {
   color: #ff3b3b;
   font-weight: 800;
 }
+
+/* ORP / Spritz Pivot – exakt rot wie im Original */
+.spritz-pivot,
+.br-red {
+  color: #ff0000 !important;
+  font-weight: 800;
+}
