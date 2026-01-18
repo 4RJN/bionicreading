@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://4rjn.github.io/bionicreading/sitemap.xml
