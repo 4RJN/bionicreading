@@ -5,26 +5,24 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="color-scheme" content="dark light" />
 
-  <title>Speedreader (ORP) – RSVP lokal im Browser</title>
+  <title>Speedreader (ORP) – RSVP</title>
   <meta name="description" content="Speedreader mit ORP-Fixierung (RSVP): Text einfügen, WPM einstellen und fokussiert lesen. Alles läuft lokal im Browser." />
-  <link rel="canonical" href="https://4rjn.github.io/bionicreading/" />
+  <link rel="canonical" href="https://4rjn.github.io/bionicr/" />
   <meta name="robots" content="index,follow,max-image-preview:large" />
 
-  <!-- OpenGraph / Social -->
   <meta property="og:site_name" content="Speedreader (ORP)" />
-  <meta property="og:title" content="Speedreader (ORP) – RSVP lokal im Browser" />
-  <meta property="og:description" content="Text einfügen → WPM einstellen → RSVP lesen. ORP-Fixierung hält den Fokus stabil. Lokal im Browser." />
+  <meta property="og:title" content="Speedreader (ORP) – RSVP" />
+  <meta property="og:description" content="Text einfügen → WPM einstellen → RSVP lesen. ORP-Fixierung hält den Fokus stabil." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://4rjn.github.io/bionicreading/" />
-  <meta property="og:image" content="https://4rjn.github.io/bionicreading/assets/og.svg" />
+  <meta property="og:url" content="https://4rjn.github.io/bionicr/" />
+  <meta property="og:image" content="https://4rjn.github.io/bionicr/assets/og.png" />
   <meta name="twitter:card" content="summary_large_image" />
 
-  <!-- PWA-ish -->
   <link rel="manifest" href="./site.webmanifest" />
   <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
 
-  <!-- KEEP: original CSS -->
-  <link rel="stylesheet" href="./assets/app.css" />
+  <!-- WICHTIG: cache-bust, damit das alte CSS wirklich geladen wird -->
+  <link rel="stylesheet" href="./assets/app.css?v=20260118-1" />
 </head>
 
 <body>
@@ -42,7 +40,7 @@
         <a href="#tool">Tool</a>
         <a href="#faq">FAQ</a>
         <a href="#privacy">Datenschutz</a>
-        <a class="pill" href="https://github.com/4rjn/bionicreading" target="_blank" rel="noreferrer">GitHub</a>
+        <a class="pill" href="https://github.com/4rjn/bionicr" target="_blank" rel="noreferrer">GitHub</a>
       </nav>
     </div>
   </header>
@@ -70,11 +68,11 @@
 
       <div class="hero-card">
         <div class="mini-title">Vorschau</div>
-        <div class="spritz preview" aria-hidden="true">
+        <div class="preview">
           <div class="spritz-line">
-            <span class="spritz-left">mi</span><span class="spritz-pivot br-red">n</span><span class="spritz-right">ute</span>
+            <span class="spritz-left">mi</span><span class="spritz-pivot">n</span><span class="spritz-right">ute</span>
           </div>
-          <div class="spritz-meta muted">300 wpm · ORP</div>
+          <p class="muted small">300 wpm</p>
         </div>
       </div>
     </section>
@@ -150,16 +148,18 @@
             <p class="muted">Anzeige</p>
           </div>
 
-          <div class="spritz-box" aria-live="polite" aria-label="Speedreader Anzeige">
-            <div class="spritz-line" id="spritzLine">
+          <div class="spritz-box" aria-live="polite">
+            <div class="spritz-line">
               <span class="spritz-left" id="spritzLeft"></span>
-              <span class="spritz-pivot br-red" id="spritzPivot"></span>
+              <span class="spritz-pivot" id="spritzPivot"></span>
               <span class="spritz-right" id="spritzRight"></span>
             </div>
+
             <div class="spritz-hud">
               <span class="pill small" id="spritzPos">0/0</span>
               <span class="pill small" id="spritzInfo">300 wpm</span>
             </div>
+
             <div class="spritz-sub muted" id="spritzSub">Bereit.</div>
           </div>
         </div>
@@ -177,21 +177,13 @@
           <summary>Was ist ORP?</summary>
           <div class="content">
             ORP steht für „Optimal Recognition Point“. Dabei wird ein Buchstabe pro Wort an einer stabilen Position hervorgehoben,
-            sodass die Augen nicht ständig nach links/rechts springen müssen.
+            sodass die Augen weniger springen.
           </div>
         </details>
-
         <details>
           <summary>Werden meine Daten hochgeladen?</summary>
           <div class="content">
-            Nein. Der Text wird ausschließlich lokal in deinem Browser verarbeitet.
-          </div>
-        </details>
-
-        <details>
-          <summary>Gibt es Tastatur-Shortcuts?</summary>
-          <div class="content">
-            Space = Play/Pause (außer du bist im Textfeld). Pfeil links/rechts springt ein Wort zurück/vor.
+            Nein. Der Text wird ausschließlich lokal im Browser verarbeitet.
           </div>
         </details>
       </div>
@@ -200,35 +192,19 @@
     <section id="privacy" class="panel">
       <div class="panel-head">
         <h2>Datenschutz</h2>
-        <p class="muted">Client-Side by Design</p>
+        <p class="muted">Client-Side</p>
       </div>
 
       <div class="card">
-        <p>
-          Diese Seite verarbeitet Text <strong>nur lokal</strong> im Browser.
-          Es werden keine Inhalte an einen Server übertragen.
-        </p>
+        <p>Diese Seite verarbeitet Text nur lokal im Browser. Es werden keine Inhalte an einen Server übertragen.</p>
       </div>
     </section>
 
     <footer class="footer">
-      <div class="muted small">© <span id="year"></span> · 4rjn.github.io/bionicreading</div>
+      <div class="muted small">© <span id="year"></span> · 4rjn.github.io/bionicr</div>
     </footer>
   </main>
 
-  <!-- Structured Data -->
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"WebApplication",
-    "name":"Speedreader (ORP)",
-    "url":"https://4rjn.github.io/bionicreading/",
-    "applicationCategory":"UtilitiesApplication",
-    "operatingSystem":"Web",
-    "description":"Speedreader mit ORP-Fixierung (RSVP): Text einfügen, WPM einstellen und lokal im Browser lesen."
-  }
-  </script>
-
-  <script src="./assets/app.js"></script>
+  <script src="./assets/app.js?v=20260118-1"></script>
 </body>
 </html>
