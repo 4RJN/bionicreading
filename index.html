@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="color-scheme" content="dark light" />
+  <title>Bionic Reading Converter – Text & PDF lokal umwandeln</title>
+
+  <!-- SEO -->
+  <meta name="description" content="Bionic Reading im Browser: Text einfügen oder PDF hochladen und sofort fokussierter lesen. 100% lokal, ohne Server." />
+  <link rel="canonical" href="https://4rjn.github.io/bionicreading/" />
+  <meta name="robots" content="index,follow,max-image-preview:large" />
+
+  <!-- OpenGraph / Social -->
+  <meta property="og:site_name" content="Bionic Reading Converter" />
+  <meta property="og:title" content="Bionic Reading Converter – Text & PDF lokal umwandeln" />
+  <meta property="og:description" content="Text einfügen oder PDF hochladen → Bionic Reading sofort starten. Alles läuft lokal im Browser." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://4rjn.github.io/bionicreading/" />
+  <meta property="og:image" content="https://4rjn.github.io/bionicreading/assets/og.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- PWA-ish -->
+  <link rel="manifest" href="./site.webmanifest" />
+  <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
+
+  <link rel="stylesheet" href="./assets/app.css" />
+
+  <!-- PDF.js (Client-side PDF Text Extraction) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.7.76/pdf.min.js" integrity="sha512-6H7h3o3xvF8m8R2m+6mE6K9g3hOqj3H2Qm1h+0kP+gVZ5H3o5uYjQkqf6Q5l0bK1xk9rJXWZ0qvM3u8s7l5d9Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="wrap">
+      <a class="brand" href="./" aria-label="Startseite">
+        <span class="logo" aria-hidden="true">BR</span>
+        <span class="brand-text">
+          <strong>Bionic Reading</strong>
+          <span class="muted">Text & PDF → Fokus-Lesen</span>
+        </span>
+      </a>
+
+      <nav class="nav">
+        <a href="#tool">Tool</a>
+        <a href="#faq">FAQ</a>
+        <a href="#privacy">Datenschutz</a>
+        <a class="pill" href="https://github.com/4rjn/bionicreading" target="_blank" rel="noreferrer">GitHub</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <div class="hero-left">
+        <h1>Text oder PDF rein — <span class="grad">Bionic Reading</span> startet sofort.</h1>
+        <p class="lead">
+          Markiere die Wort-Anker (z. B. rote Buchstaben) und lies schneller & fokussierter.
+          <strong>Alles läuft lokal im Browser</strong> – keine Uploads auf Server.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn primary" href="#tool">Jetzt starten</a>
+          <button class="btn ghost" id="btn-demo" type="button">Demo einfügen</button>
+        </div>
+
+        <div class="badges">
+          <span class="badge">100% Client-Side</span>
+          <span class="badge">Text & PDF</span>
+          <span class="badge">Copy & Export</span>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <div class="mini-title">Vorschau</div>
+        <div class="preview" id="preview">
+          <p><span class="br">B</span>i<span class="br">o</span>n<span class="br">i</span>c Reading hebt Wort-Anker hervor…</p>
+          <p class="muted">…damit dein Gehirn schneller „einrastet“.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="tool" class="panel">
+      <div class="panel-head">
+        <h2>Converter</h2>
+        <p class="muted">Text einfügen oder PDF hochladen. Danach: Intensität wählen → umwandeln.</p>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <div class="card-head">
+            <h3>1) Input</h3>
+            <p class="muted">Text oder PDF</p>
+          </div>
+
+          <div class="tabs" role="tablist" aria-label="Eingabe wählen">
+            <button class="tab active" id="tab-text" type="button" role="tab" aria-selected="true">Text</button>
+            <button class="tab" id="tab-pdf" type="button" role="tab" aria-selected="false">PDF</button>
+          </div>
+
+          <div id="pane-text" class="pane">
+            <label class="label" for="inputText">Text einfügen</label>
+            <textarea id="inputText" class="textarea" placeholder="Kopiere hier deinen Text rein…"></textarea>
+
+            <div class="row">
+              <button class="btn primary" id="btn-convert-text" type="button">Bionic Reading starten</button>
+              <button class="btn" id="btn-clear" type="button">Leeren</button>
+            </div>
+
+            <div class="hint">Tipp: Für beste Ergebnisse Absätze/Überschriften beibehalten.</div>
+          </div>
+
+          <div id="pane-pdf" class="pane hidden">
+            <label class="label" for="pdfFile">PDF hochladen</label>
+            <input id="pdfFile" class="file" type="file" accept="application/pdf" />
+
+            <div class="row">
+              <button class="btn primary" id="btn-convert-pdf" type="button">PDF lesen & umwandeln</button>
+              <button class="btn" id="btn-pdf-reset" type="button">Reset</button>
+            </div>
+
+            <div class="hint">
+              PDF wird lokal verarbeitet. Große PDFs dauern je nach Gerät ein paar Sekunden.
+            </div>
+
+            <div class="progress hidden" id="pdfProgress">
+              <div class="bar" id="pdfBar" style="width:0%"></div>
+              <div class="muted" id="pdfStatus">Bereit.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-head">
+            <h3>2) Einstellungen</h3>
+            <p class="muted">Steuere, wie stark markiert wird</p>
+          </div>
+
+          <div class="controls">
+            <div class="control">
+              <label class="label" for="intensity">Intensität (Anteil pro Wort)</label>
+              <input id="intensity" type="range" min="10" max="70" step="5" value="35" />
+              <div class="muted small">Aktuell: <span id="intensityVal">35%</span></div>
+            </div>
+
+            <div class="control">
+              <label class="label" for="mode">Markierung</label>
+              <select id="mode" class="select">
+                <option value="red">Rot + fett (Standard)</option>
+                <option value="bold">Nur fett</option>
+                <option value="underline">Unterstrichen</option>
+              </select>
+            </div>
+
+            <div class="control">
+              <label class="label" for="fontSize">Leseschrift</label>
+              <select id="fontSize" class="select">
+                <option value="16">Normal</option>
+                <option value="18" selected>Groß</option>
+                <option value="20">Sehr groß</option>
+                <option value="24">XL</option>
+              </select>
+            </div>
+
+            <div class="row">
+              <button class="btn" id="btn-copy" type="button">Als Text kopieren</button>
+              <button class="btn" id="btn-export" type="button">Als HTML speichern</button>
+            </div>
+
+            <div class="hint">
+              „Als Text kopieren“ kopiert die reine Textversion. „HTML speichern“ behält Markierungen.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="output card">
+        <div class="card-head">
+          <h3>3) Output</h3>
+          <p class="muted">Hier erscheint dein Bionic-Text</p>
+        </div>
+
+        <div class="output-toolbar">
+          <span class="pill small" id="stats">0 Wörter</span>
+          <span class="pill small" id="status">Bereit.</span>
+        </div>
+
+        <article id="output" class="reader" aria-live="polite">
+          <p class="muted">Füge links Text ein oder lade ein PDF hoch. Dann „Bionic Reading starten“.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="faq" class="panel">
+      <div class="panel-head">
+        <h2>FAQ</h2>
+        <p class="muted">Kurz & knapp</p>
+      </div>
+
+      <div class="faq">
+        <details>
+          <summary>Was ist Bionic Reading?</summary>
+          <div class="content">
+            Es werden Wort-Anker (z. B. der erste Teil eines Wortes) hervorgehoben, damit du schneller scannen und stabiler fokusieren kannst.
+          </div>
+        </details>
+
+        <details>
+          <summary>Werden meine PDFs hochgeladen?</summary>
+          <div class="content">
+            Nein. Die Verarbeitung passiert lokal im Browser. Es gibt keinen Server-Upload.
+          </div>
+        </details>
+
+        <details>
+          <summary>Warum sehen manche PDF-Texte komisch aus?</summary>
+          <div class="content">
+            Manche PDFs sind nur Bilder oder haben ungewöhnliche Textlayer. Dann kann extrahierter Text lückenhaft sein.
+            In dem Fall hilft oft eine „echte“ Text-PDF oder OCR vorab.
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <section id="privacy" class="panel">
+      <div class="panel-head">
+        <h2>Datenschutz</h2>
+        <p class="muted">Client-Side by Design</p>
+      </div>
+
+      <div class="card">
+        <p>
+          Diese Seite verarbeitet Text und PDFs <strong>ausschließlich lokal im Browser</strong>.
+          Es werden keine Inhalte an einen Server übertragen.
+        </p>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="muted small">© <span id="year"></span> Bionic Reading Converter · 4rjn.github.io/bionicreading</div>
+    </footer>
+  </main>
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"WebApplication",
+    "name":"Bionic Reading Converter",
+    "url":"https://4rjn.github.io/bionicreading/",
+    "applicationCategory":"UtilitiesApplication",
+    "operatingSystem":"Web",
+    "description":"Text oder PDF lokal in Bionic Reading umwandeln – ohne Server-Upload."
+  }
+  </script>
+
+  <script src="./assets/app.js"></script>
+</body>
+</html>
